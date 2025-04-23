@@ -148,6 +148,7 @@ public class ComponentServiceImpl implements ComponentService {
         for (ComponentLibrary componentLibrary : packageList) {
             componentLibrary.setIsDefault(true);
             componentLibrary.setIsStarted(true);
+            componentLibrary.setIsOfficial(true);
             ComponentLibrary library = new ComponentLibrary();
             library.setName(componentLibrary.getName());
             library.setVersion(componentLibrary.getVersion());
@@ -194,7 +195,17 @@ public class ComponentServiceImpl implements ComponentService {
             data = (Map<String, Object>) dataObj;
         }
         BundleDto bundleDto = BeanUtil.mapToBean(data, BundleDto.class, true);
+        return this.parseBundle(bundleDto);
+    }
 
+    /**
+     * 解析bundleDto为component集合
+     *
+     * @param bundleDto bundleDto
+     * @return BundleResultDto BundleResultDto
+     */
+    @Override
+    public Result<BundleResultDto> parseBundle(BundleDto bundleDto) {
         List<Map<String, Object>> components = bundleDto.getMaterials().getComponents();
         List<Child> snippets = bundleDto.getMaterials().getSnippets();
 

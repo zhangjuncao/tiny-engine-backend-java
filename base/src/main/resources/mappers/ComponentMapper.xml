@@ -169,13 +169,13 @@
         <if test="framework!=null and framework!=''">
             framework = #{framework},
         </if>
-        <if test="isOfficial!=null and isOfficial!=''">
+        <if test="isOfficial!=null">
             is_official = #{isOfficial},
         </if>
-        <if test="isDefault!=null and isDefault!=''">
+        <if test="isDefault!=null">
             is_default = #{isDefault},
         </if>
-        <if test="isTinyReserved!=null and isTinyReserved!=''">
+        <if test="isTinyReserved!=null">
             tiny_reserved = #{isTinyReserved},
         </if>
         <if test="componentMetadata!=null and componentMetadata!=''">
@@ -267,7 +267,7 @@
    <select id="findUserComponentsByMaterialHistoryId" resultMap="ComponentMap">
        SELECT C.*
        FROM t_component C
-       JOIN r_material_history_component MHC ON C.id = MHC.`component_id`
+       JOIN r_material_history_component MHC ON C.id = MHC.`component_id` AND C.is_official = true
        WHERE MHC.`material_history_id` = #{id}
    </select>
 
